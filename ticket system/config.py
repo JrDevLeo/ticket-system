@@ -1,1 +1,1 @@
-token = "ODE5MjM5Mjc3ODYyMzIyMjM2.YEjuCA.CQnGxq--Js_mvYzyDHYYqS-C0oQ"
+token = "BOT TOKENİ"
