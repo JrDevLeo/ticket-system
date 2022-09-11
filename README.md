@@ -1,4 +1,3 @@
-# ticket-system
-discord sunucuları için ticket botu
-botun şuanki eksikleri ticket kapatma kısmı eklenmedi + olarak ticket oluşturma event olarak eklenicek gelecek güncellemede gidermeyi düşünüyorum.
-sorularınız için LEO4BEY#0001
+Discord butonlu ticket botu / Discord ticket bot with buttons
+LEO4BEY#0001
+https://www.leo4bey.com
