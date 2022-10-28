@@ -24,7 +24,7 @@ class LeoTicketSil(discord.ui.View):
 
     @discord.ui.button(label='Ticket Sil', style=discord.ButtonStyle.red, custom_id='leo_ticket_sil:red', emoji="🔒")
     async def red(self, interaction: discord.Interaction, button: discord.ui.Button):
-        log_channel = bot.get_channel(1017271793557458974) #log kanal id'si girin - entry your log channel id
+        log_channel = bot.get_channel(log_ch)
         channel01 = interaction.channel
 
         
@@ -49,9 +49,9 @@ class LeoTicketOlustur(discord.ui.View):
     @discord.ui.button(label='Ticket Oluştur', style=discord.ButtonStyle.green, custom_id='leo_ticket_olustur:green', emoji="🎫")
     async def green(self, interaction: discord.Interaction, button: discord.ui.Button):
         guild = interaction.guild
-        admin_role = interaction.guild.get_role(1017272907510054984) #yetkili rol id girin - entry your ticket support rol id
+        admin_role = interaction.guild.get_role(admin) 
         member = interaction.user
-        tcktcategory = discord.utils.get(guild.categories, name="altyapı-talebi") #Ticketin oluşturulacağı katogorinin adı - bot will create ticket in this categories
+        tcktcategory = discord.utils.get(guild.categories, name="leoticket") #Ticketin oluşturulacağı katogorinin adı - bot will create ticket in this categories
 
         overwrites = {
         guild.default_role: discord.PermissionOverwrite(read_messages=False),
@@ -61,18 +61,18 @@ class LeoTicketOlustur(discord.ui.View):
 
         LeoTicketMesaj = discord.Embed(
         title = "Destek Talebi",
-        description ="Bir Kullanıcı Destek Talebi Oluşturdu \n Birazdan <@&ROL_ID> Yetkisi Sahip Kişiler Yardım İçin Gelicekler", #yetkili rol id girin - entry yourticket support role id
+        description = f'Bir Kullanıcı Destek Talebi Oluşturdu \n Birazdan <@&{admin}> Yetkisi Sahip Kişiler Yardım İçin Gelicekler', #yetkili rol id girin - entry yourticket support role id
         colour = discord.Colour.random()
         )
         LeoTicketMesaj.set_footer(text=footer)
 
         view= LeoTicketSil()
         channel4 = await interaction.guild.create_text_channel(f'ticket-{interaction.user.name}', reason=None, category=tcktcategory, news=False, overwrites=overwrites)
-        await channel4.send(f'<@{interaction.user.id}> , <@&ROL-ID>', embed=LeoTicketMesaj, view=view) #yetkili rol id girin - entry your ticket support role id
+        await channel4.send(f'<@{interaction.user.id}> , <@&{admin}>', embed=LeoTicketMesaj, view=view) #yetkili rol id girin - entry your ticket support role id
 
-        log_channel = bot.get_channel(1017271793557458974) # log kanal id'si girin - entry yourlog channel id
+        log_channel = bot.get_channel(log_ch)
         with open(f'ticket-{channel4.id}.txt', 'w+') as fp:
-            fp.write(f'Ticket Olusturulma Zamani: {date_time} \nTicket Oluşturan Kişi Adı: {interaction.user} \nTicket Olusturan Kisi id: {interaction.user.id}\n- - - - - - - - - -\n')
+            fp.write(f'Ticket Olusturulma Zamani: {date_time} \nTicket Olusturan Kisi Adi: {interaction.user} \nTicket Olusturan Kisi id: {interaction.user.id}\n- - - - - - - - - -\n')
             fp.close()
             @bot.event
             async def on_message(message):
@@ -119,8 +119,8 @@ bot = LeoButtonListener()
 @commands.has_permissions(administrator = True)
 async def ticket(ctx):
     LeoTicketEmbed = discord.Embed(
-        title = "Safe Code Ticket System",
-        description ="Destek veya altyapı talebi oluşturmak için alt kısımdaki butona tıklayınız\n Gereksiz kullananlar ceza alacaktır",
+        title = f'{servernm} Ticket System',
+        description ="Destek talebi oluşturmak için\nalt kısımdaki butona tıklayınız\nGereksiz kullananlar ceza alacaktır",
         colour = discord.Colour.green()
     )
     LeoTicketEmbed.set_footer(text=footer)
@@ -137,6 +137,4 @@ async def on_ready():
 bot.run(token)
 
 #LEO4BEY TARAFINDAN YAZILMIŞTIR İZİNSİZ PAYLAŞILMASI YASAKTIR
-#Safe Code Sunucusu için Yazılmıştır
-#discord.gg/safecode
 #https://www.leo4bey.com
